@@ -1,0 +1,45 @@
+spring:
+  application:
+    name: ROUTING-SERVICE
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost/quartz
+    username: karthik
+    password: example-password
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      properties:
+        hibernate:
+          dialect: org.hibernate.dialect.MySQL8Dialect
+
+
+quartz:
+  jdbc:
+    initialize-schema: always
+  properties:
+    org:
+      quartz:
+        jobStore:
+          class: org.quartz.impl.jdbcjobstore.JobStoreTX
+          driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+
+server:
+  port: 8080
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+  openapi:
+    dev-url: http://localhost:8080
+    prod-url: https://bezkoder-api.com
+
+
+Google:
+  map:
+    getOptimizedRoute:
+      url: "http://localhost:9090/DIRECTION-SERVICE/api/v1/google-direction-service/get-directions"
+
