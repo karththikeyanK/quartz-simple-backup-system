@@ -1,4 +1,4 @@
-package com.eimsky.routingservice.response;
+package com.example.quartz.response;
 
 import lombok.*;
 

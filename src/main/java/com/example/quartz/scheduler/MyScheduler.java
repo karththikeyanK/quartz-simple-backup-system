@@ -1,39 +1,50 @@
 package com.example.quartz.scheduler;
 
+import com.example.quartz.executor.DGJobExecutor;
+import jakarta.annotation.PostConstruct;
+import lombok.extern.slf4j.Slf4j;
+import org.quartz.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
-import com.quartzdemo.executor.MyJobExecutor;
-import org.quartz.JobDetail;
-import org.quartz.Scheduler;
-import org.quartz.SchedulerException;
-import org.quartz.Trigger;
-import org.quartz.impl.StdSchedulerFactory;
 
 import static org.quartz.JobBuilder.newJob;
 import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
 import static org.quartz.TriggerBuilder.newTrigger;
 
+@Slf4j
+@Configuration
+@EnableScheduling
 public class MyScheduler {
-    public static void main(String[] args) throws SchedulerException {
-        Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
 
-        // Define the job and tie it to our MyJob class
-        JobDetail job = newJob(MyJobExecutor .class)
-                .withIdentity("myJob", "group1")
+    @Autowired
+    private Scheduler scheduler;
+
+    @Autowired
+    private DGJobExecutor dgJobExecutor;
+
+    @PostConstruct
+    public void scheduleJobs() throws SchedulerException {
+        log.info("MyScheduler::scheduleJobs():: started..");
+
+        JobDetail job = newJob(DGJobExecutor.class)
+                .withIdentity("DGBackup", "group1")
+                .usingJobData("jobID", "DGBackupJob")
                 .build();
 
-        // Trigger the job to run now, and then every 10 seconds
         Trigger trigger = newTrigger()
                 .withIdentity("myTrigger", "group1")
                 .startNow()
                 .withSchedule(simpleSchedule()
-                        .withIntervalInSeconds(10)
+                        .withIntervalInMinutes(1)
                         .repeatForever())
                 .build();
 
-        // Tell quartz to schedule the job using our trigger
         scheduler.scheduleJob(job, trigger);
-
-        // Start the scheduler
         scheduler.start();
+
+        log.info("MyScheduler::scheduleJobs():: ended..");
     }
 }
+

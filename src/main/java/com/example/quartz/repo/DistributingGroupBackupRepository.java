@@ -1,4 +1,9 @@
-package com.example.quartz.repository;
+package com.example.quartz.repo;
 
-public interface DistributingGroupBackupRepository {
+import com.example.quartz.entity.DistributingGroupBackup;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface DistributingGroupBackupRepository extends JpaRepository<DistributingGroupBackup, Long> {
 }

@@ -1,9 +1,9 @@
-package com.eimsky.routingservice.controller;
+package com.example.quartz.controller;
 
-import com.eimsky.routingservice.exceptions.*;
-import com.eimsky.routingservice.response.ApiExceptionResponse;
-import com.fasterxml.jackson.core.JsonProcessingException;
+
+import com.example.quartz.response.ApiExceptionResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -17,36 +17,6 @@ public class ExceptionHandlerController {
         return ResponseEntity.badRequest().body(new ApiExceptionResponse(ApiExceptionResponse.ERROR,ex.getMessage()));
     }
 
-    @ExceptionHandler(DuplicateContentException.class)
-    public ResponseEntity<ApiExceptionResponse> handleDuplicateContentException(DuplicateContentException ex) {
-        log.error("DuplicateContentException: "+ ex.getMessage());
-        return ResponseEntity.badRequest().body(new ApiExceptionResponse(ApiExceptionResponse.ERROR,ex.getMessage()));
-    }
-
-
-    @ExceptionHandler(RecordCreationException.class)
-    public ResponseEntity<ApiExceptionResponse> handleRecordCreationException(RecordCreationException ex) {
-        log.error("RecordCreationException: "+ ex.getMessage());
-        return ResponseEntity.badRequest().body(new ApiExceptionResponse(ApiExceptionResponse.ERROR,ex.getMessage()));
-    }
-
-    @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<ApiExceptionResponse> handleResourceNotFoundException(ResourceNotFoundException ex) {
-        log.error("ResourceNotFoundException: "+ ex.getMessage());
-        return ResponseEntity.badRequest().body(new ApiExceptionResponse(ApiExceptionResponse.ERROR,ex.getMessage()));
-    }
-
-    @ExceptionHandler(HttpStatusException.class)
-    public ResponseEntity<ApiExceptionResponse> handleInvalidRequestException(HttpStatusException ex) {
-        log.error("InvalidRequestException: "+ ex.getMessage());
-        return ResponseEntity.badRequest().body(new ApiExceptionResponse(ApiExceptionResponse.ERROR,ex.getMessage()));
-    }
-
-    @ExceptionHandler(ResponseException.class)
-    public ResponseEntity<ApiExceptionResponse> handleResponseException(ResponseException ex) {
-        log.error("ResponseException: "+ ex.getMessage());
-        return ResponseEntity.badRequest().body(new ApiExceptionResponse(ApiExceptionResponse.ERROR,ex.getMessage()));
-    }
 
 
     @ExceptionHandler(Exception.class)
@@ -61,23 +31,12 @@ public class ExceptionHandlerController {
         return ResponseEntity.badRequest().body(new ApiExceptionResponse(ApiExceptionResponse.ERROR,ex.getMessage()));
     }
 
-    @ExceptionHandler(JsonProcessingException.class)
-    public ResponseEntity<ApiExceptionResponse> handleJsonProcessingException(JsonProcessingException ex) {
-        log.error("JsonProcessingException: "+ ex.getMessage());
+    @ExceptionHandler(InterruptedException.class)
+    public ResponseEntity<ApiExceptionResponse> handleInterruptedException(InterruptedException ex) {
+        log.error("InterruptedException: "+ ex.getMessage());
         return ResponseEntity.badRequest().body(new ApiExceptionResponse(ApiExceptionResponse.ERROR,ex.getMessage()));
     }
 
-    @ExceptionHandler(IndexOutOfBoundsException.class)
-    public ResponseEntity<ApiExceptionResponse> handleIndexOutOfBoundsException(IndexOutOfBoundsException ex) {
-        log.error("IndexOutOfBoundsException: "+ ex.getMessage());
-        return ResponseEntity.badRequest().body(new ApiExceptionResponse(ApiExceptionResponse.ERROR,ex.getMessage()));
-    }
-
-    @ExceptionHandler(NullContainerException.class)
-    public ResponseEntity<ApiExceptionResponse> handleNullContainerException(NullContainerException ex) {
-        log.error("NullContainerException: "+ ex.getMessage());
-        return ResponseEntity.badRequest().body(new ApiExceptionResponse(ApiExceptionResponse.ERROR,ex.getMessage()));
-    }
 
 
 }

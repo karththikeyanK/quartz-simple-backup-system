@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class DistributingGroupResponse {
+public class DistributingGroupBackupRequest {
     private Long id;
     private String name;
     private String notes;

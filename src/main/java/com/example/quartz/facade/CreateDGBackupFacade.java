@@ -13,23 +13,25 @@ import java.util.Objects;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class createDGBackupFacade {
+public class CreateDGBackupFacade {
 
     private final DGService dgService;
 
     @Transactional
-    public void createDGBackup(List<DistributingGroupBackupRequest> distributingGroupBackupRequestList, String jobId){
-        log.info("createDGBackupFacade::createDGBackup():: started..");
+    public  void createDGBackup(List<DistributingGroupBackupRequest> distributingGroupBackupRequestList, String jobId){
+        log.info("CreateDGBackupFacade::createDGBackup():: started..");
         if (Objects.equals(jobId, "DGBackupJob")){
-            log.info("createDGBackupFacade::createDGBackup():: creating DG Backup with job id {} ",jobId);
+            log.info("CreateDGBackupFacade::createDGBackup():: creating DG Backup with job id {} ",jobId);
             dgService.deleteAllDistributingGroupBackup();
-            log.info("createDGBackupFacade::createDGBackup():: Old DG Backup deleted with job id {} ",jobId);
+            log.info("CreateDGBackupFacade::createDGBackup():: Old DG Backup deleted with job id {} ",jobId);
 
             for (DistributingGroupBackupRequest distributingGroupBackupRequest : distributingGroupBackupRequestList){
                 dgService.createDistributingGroupBackup(distributingGroupBackupRequest, jobId);
             }
-            log.info("createDGBackupFacade::createDGBackup():: New DG Backup created with job id {} ",jobId);
+            log.info("CreateDGBackupFacade::createDGBackup():: New DG Backup created with job id {} ",jobId);
         }
-        log.info("createDGBackupFacade::createDGBackup():: ended..");
+        log.info("CreateDGBackupFacade::createDGBackup():: ended..");
     }
+
+
 }
